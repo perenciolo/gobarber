@@ -70,7 +70,7 @@ export default function SignUp({ navigation }) {
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
           />
-          <SubmitButton loading={loading} onPress={handleSubmit}>
+          <SubmitButton loading={loading} handler={handleSubmit}>
             Cadastrar
           </SubmitButton>
           <SignLink onPress={() => navigation.navigate('SignIn')}>
