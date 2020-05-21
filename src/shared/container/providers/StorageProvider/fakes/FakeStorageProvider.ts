@@ -1,11 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-
-import uploadConfig from '@config/upload';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
 class FakeStorageProvider implements IStorageProvider {
-  private storage: Array<string>;
+  private storage: Array<string> = [];
 
   public async saveFile(file: string): Promise<string> {
     this.storage.push(file);
