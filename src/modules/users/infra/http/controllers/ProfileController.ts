@@ -7,7 +7,8 @@ import ShowProfileService from '@modules/users/services/ShowProfileService';
 export default class ProfileController {
   async show(request: Request, response: Response): Promise<Response> {
     const showProfile = container.resolve(ShowProfileService);
-    const user = showProfile.execute({ user_id: request.user.id });
+    const user = await showProfile.execute({ user_id: request.user.id });
+    delete user.password;
     return response.json(user);
   }
 
