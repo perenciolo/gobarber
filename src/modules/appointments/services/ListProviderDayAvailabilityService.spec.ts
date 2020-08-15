@@ -19,6 +19,7 @@ describe('ListProviderDayAvailabilityService', () => {
       index === 0 || index === 2
         ? fakeAppointmentsRepository.create({
             provider_id: 'user_id',
+            user_id: 'user_id',
             date: new Date(2020, 4, 19, 8 + index, 0, 0),
           })
         : null,

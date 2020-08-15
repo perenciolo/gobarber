@@ -18,12 +18,14 @@ describe('ListProviderMonthAvailabilityService', () => {
     const fakesPromise = new Array(10).fill(undefined).map((_, index) =>
       fakeAppointmentsRepository.create({
         provider_id: 'user_id',
+        user_id: 'user_id',
         date: new Date(2020, 4, 19, 8 + index, 0, 0),
       }),
     );
     fakesPromise.push(
       fakeAppointmentsRepository.create({
         provider_id: 'user_id',
+        user_id: 'user_id',
         date: new Date(2020, 4, 31, 10, 0, 0),
       }),
     );
