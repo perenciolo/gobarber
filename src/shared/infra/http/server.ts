@@ -12,9 +12,11 @@ import '@shared/container';
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import routes from '@shared/infra/http/routes';
+import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
 
 const app = express();
 
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
