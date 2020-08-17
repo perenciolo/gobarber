@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 import { Form, Formik, FormikProps } from 'formik';
@@ -8,12 +8,28 @@ import { Container, Content, Background } from './styles';
 import logo from '../../assets/logo.svg';
 import Button from '../../components/Button/Button';
 import FormikInput from '../../components/FormikInput/FormikInput';
+import { useAuth } from '../../hooks/Authentication/Authentication';
 
 const SignIn: React.FC = () => {
-  const SignInSchema = Yup.object().shape({
-    email: Yup.string().trim().email().required('Field email is required'),
-    password: Yup.string().trim().required('Field password is required'),
-  });
+  const { signIn } = useAuth();
+
+  const handleSubmit = useCallback(
+    (values, actions) => {
+      signIn({ email: values.email, password: values.password });
+      actions.setSubmitting(false);
+    },
+    [signIn],
+  );
+
+  const SignInSchema = useMemo(
+    () =>
+      Yup.object().shape({
+        email: Yup.string().trim().email().required('Field email is required'),
+        password: Yup.string().trim().required('Field password is required'),
+      }),
+    [],
+  );
+
   return (
     <Container>
       <Content>
@@ -21,12 +37,7 @@ const SignIn: React.FC = () => {
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={SignInSchema}
-          onSubmit={(values, actions) => {
-            setTimeout(() => {
-              console.log('chegou aqui');
-              actions.setSubmitting(false);
-            }, 500);
-          }}
+          onSubmit={handleSubmit}
         >
           {({ setFieldTouched, isValid, isSubmitting }: FormikProps<any>) => {
             return (
