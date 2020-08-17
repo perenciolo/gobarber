@@ -22,10 +22,13 @@ const SignIn: React.FC = () => {
           initialValues={{ email: '', password: '' }}
           validationSchema={SignInSchema}
           onSubmit={(values, actions) => {
-            actions.setSubmitting(false);
+            setTimeout(() => {
+              console.log('chegou aqui');
+              actions.setSubmitting(false);
+            }, 500);
           }}
         >
-          {({ setFieldTouched, values }: FormikProps<any>) => {
+          {({ setFieldTouched, isValid, isSubmitting }: FormikProps<any>) => {
             return (
               <Form>
                 <h1>Faça seu login</h1>
@@ -45,13 +48,19 @@ const SignIn: React.FC = () => {
                   onFocus={() => setFieldTouched('password', true)}
                   onBlur={() => setFieldTouched('password', false)}
                 />
-                <Button type="submit">Entrar</Button>
+                <Button
+                  type="submit"
+                  disabled={!isValid}
+                  loading={isSubmitting}
+                >
+                  Entrar
+                </Button>
                 <a href="forgot">Esqueci minha senha</a>
               </Form>
             );
           }}
         </Formik>
-        <a href="#">
+        <a href="signup">
           <FiLogIn />
           Criar conta
         </a>
