@@ -5,13 +5,14 @@ import { theme } from '../../styles/global';
 interface IContainerProps {
   isFocused: boolean;
   isFilled: boolean;
-  // isErrored: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.div<IContainerProps>`
   & + div {
     margin-top: 8px;
   }
+
   display: flex;
   align-items: center;
   background: ${theme.palette.black};
@@ -57,6 +58,13 @@ export const Container = styled.div<IContainerProps>`
     css`
       color: ${theme.palette.primary};
       border-color: ${theme.palette.primary};
+    `}
+
+  ${props =>
+    props.isErrored &&
+    css`
+      color: ${theme.palette.danger};
+      border-color: ${theme.palette.danger};
     `}
 
   ${props =>

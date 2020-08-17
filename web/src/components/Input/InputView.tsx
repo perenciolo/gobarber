@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { Container, Error } from './InputView.styles';
 import { IconBaseProps } from 'react-icons/lib';
@@ -11,13 +11,13 @@ interface Props {
   name: string;
   icon?: React.ComponentType<IconBaseProps>;
   inputRef: React.MutableRefObject<HTMLInputElement | null>;
-  onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   isFocused: boolean;
   isFilled: boolean;
   showTooltip: boolean;
   toggleTooltip: (event: React.MouseEvent<SVGElement, MouseEvent>) => void;
-  hasError: boolean;
+  error: string | undefined;
 }
 
 const InputView: React.FC<Props> = ({
@@ -30,11 +30,12 @@ const InputView: React.FC<Props> = ({
   isFilled,
   showTooltip,
   toggleTooltip,
-  hasError,
+  error,
   ...rest
 }) => {
+  const isErrored = useMemo(() => Boolean(error), [error]);
   return (
-    <Container isFocused={isFocused} isFilled={isFilled}>
+    <Container isFocused={isFocused} isFilled={isFilled} isErrored={isErrored}>
       {Icon && <Icon size={20} />}
       <input
         ref={inputRef}
@@ -43,10 +44,10 @@ const InputView: React.FC<Props> = ({
         onBlur={onBlur}
         {...rest}
       />
-      {hasError && (
+      {isErrored && (
         <Error>
           <Tooltip show={showTooltip} color={theme.palette.danger}>
-            O campo senha é obrigatório
+            {error}
           </Tooltip>
           <FiInfo
             onMouseEnter={toggleTooltip}

@@ -1,33 +1,63 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+
+import { Form, Formik, FormikProps } from 'formik';
+import * as Yup from 'yup';
 
 import { Container, Content, Background } from './styles';
 import logo from '../../assets/logo.svg';
-import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import FormikInput from '../../components/FormikInput/FormikInput';
 
-const SignIn: React.FC = () => (
-  <Container>
-    <Content>
-      <img src={logo} alt="GoBarber" />
-      <form>
-        <h1>Faça seu login</h1>
-        <Input name="email" type="text" placeholder="E-mail" icon={FiMail} />
-        <Input
-          name="password"
-          type="password"
-          placeholder="Senha"
-          icon={FiLock}
-        />
-        <Button type="submit">Entrar</Button>
-        <a href="forgot">Esqueci minha senha</a>
-      </form>
-      <a href="#">
-        <FiLogIn />
-        Criar conta
-      </a>
-    </Content>
-    <Background />
-  </Container>
-);
+const SignIn: React.FC = () => {
+  const SignInSchema = Yup.object().shape({
+    email: Yup.string().trim().email().required('Field email is required'),
+    password: Yup.string().trim().required('Field password is required'),
+  });
+  return (
+    <Container>
+      <Content>
+        <img src={logo} alt="GoBarber" />
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validationSchema={SignInSchema}
+          onSubmit={(values, actions) => {
+            actions.setSubmitting(false);
+          }}
+        >
+          {({ setFieldTouched, values }: FormikProps<any>) => {
+            return (
+              <Form>
+                <h1>Faça seu login</h1>
+                <FormikInput
+                  name="email"
+                  type="text"
+                  placeholder="E-mail"
+                  icon={FiMail}
+                  onFocus={() => setFieldTouched('email', true)}
+                  onBlur={() => setFieldTouched('email', false)}
+                />
+                <FormikInput
+                  name="password"
+                  type="password"
+                  placeholder="Senha"
+                  icon={FiLock}
+                  onFocus={() => setFieldTouched('password', true)}
+                  onBlur={() => setFieldTouched('password', false)}
+                />
+                <Button type="submit">Entrar</Button>
+                <a href="forgot">Esqueci minha senha</a>
+              </Form>
+            );
+          }}
+        </Formik>
+        <a href="#">
+          <FiLogIn />
+          Criar conta
+        </a>
+      </Content>
+      <Background />
+    </Container>
+  );
+};
 export default SignIn;
