@@ -14,12 +14,12 @@ const FormikInput: React.FC<Props> = ({ name, ...rest }) => {
   return (
     <FormikInputView name={name}>
       {({ field, form, meta }: FieldProps) => {
-        console.log();
         return (
           <Input
             {...field}
             isFocused={meta.touched}
             isFilled={form.values[field.name]}
+            isErrored={meta.touched && Boolean(meta.error)}
             error={meta.error}
             {...rest}
           />

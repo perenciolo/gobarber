@@ -60,7 +60,11 @@ export const Content = styled.div`
   }
 `;
 
-export const Background = styled.div`
+interface BackgroundProps {
+  bg?: string;
+}
+
+export const Background = styled.div<BackgroundProps>`
   flex: 1;
-  background: url(${signinbg}) no-repeat center/cover;
+  background: url(${({ bg }) => bg || signinbg}) no-repeat center/cover;
 `;

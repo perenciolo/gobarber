@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Container, Error } from './InputView.styles';
 import { IconBaseProps } from 'react-icons/lib';
@@ -18,6 +18,7 @@ interface Props {
   showTooltip: boolean;
   toggleTooltip: (event: React.MouseEvent<SVGElement, MouseEvent>) => void;
   error: string | undefined;
+  isErrored: boolean;
 }
 
 const InputView: React.FC<Props> = ({
@@ -28,12 +29,12 @@ const InputView: React.FC<Props> = ({
   onBlur,
   isFocused,
   isFilled,
+  isErrored,
   showTooltip,
   toggleTooltip,
   error,
   ...rest
 }) => {
-  const isErrored = useMemo(() => Boolean(error), [error]);
   return (
     <Container isFocused={isFocused} isFilled={isFilled} isErrored={isErrored}>
       {Icon && <Icon size={20} />}

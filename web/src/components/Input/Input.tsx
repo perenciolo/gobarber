@@ -16,6 +16,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   isFocused: boolean;
   isFilled: boolean;
+  isErrored: boolean;
 }
 
 const Input: React.FC<Props> = props => {
