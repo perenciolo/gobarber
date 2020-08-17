@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Container, Error } from './InputView.styles';
 import { IconBaseProps } from 'react-icons/lib';

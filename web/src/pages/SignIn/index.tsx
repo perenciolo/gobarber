@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 import { Form, Formik, FormikProps } from 'formik';
