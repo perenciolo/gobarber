@@ -9,6 +9,6 @@ export async function signIn({ email, password }: SignInCredentials) {
     });
     return response.data;
   } catch (error) {
-    return null;
+    return error.message || 'Unexpected error try again';
   }
 }

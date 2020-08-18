@@ -10,7 +10,7 @@ interface AuthState {
 
 interface AuthContextData {
   user: object;
-  signIn(credentials: SignInCredentials): Promise<void>;
+  signIn(credentials: SignInCredentials): Promise<null | string>;
   signOut(): void;
 }
 
@@ -35,13 +35,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await AuthService.signIn({ email, password });
-    if (!response) {
-      return;
+    if (!response.token || !response.user) {
+      return response as string;
     }
     const { token, user } = response;
     localStorage.setItem(AuthLocalStorageKeys.TOKEN, token);
     localStorage.setItem(AuthLocalStorageKeys.USER, JSON.stringify(user));
     setData({ token, user });
+    return null;
   }, []);
 
   const signOut = useCallback(() => {

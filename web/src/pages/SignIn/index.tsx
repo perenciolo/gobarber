@@ -9,16 +9,31 @@ import logo from '../../assets/logo.svg';
 import Button from '../../components/Button/Button';
 import FormikInput from '../../components/FormikInput/FormikInput';
 import { useAuth } from '../../hooks/Authentication/Authentication';
+import { useToast } from '../../hooks/Toast/Toast';
 
 const SignIn: React.FC = () => {
+  const { addToast } = useToast();
+
   const { signIn } = useAuth();
 
   const handleSubmit = useCallback(
-    (values, actions) => {
-      signIn({ email: values.email, password: values.password });
+    async (values, actions) => {
+      const error = await signIn({
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) {
+        addToast({
+          type: 'alert',
+          title: error,
+          description: 'Please check your credentials',
+        });
+      }
+
       actions.setSubmitting(false);
     },
-    [signIn],
+    [signIn, addToast],
   );
 
   const SignInSchema = useMemo(

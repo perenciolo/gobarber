@@ -44,5 +44,13 @@ export const theme = {
     grey500: '#666360',
     white: '#f4ede8',
     danger: '#c53030',
+    info: '#ebf8ff',
+    infoAccent: '#3172b7',
+    success: '#e6fffa',
+    successAccent: '#2e656a',
+    alert: '#fddede',
+    alertAccent: '#c53030',
+    warning: '#ffffd7',
+    warningAccent: '#ff9800',
   },
 };

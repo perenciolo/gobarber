@@ -1,16 +1,18 @@
 import React from 'react';
 
+import AppProvider from './hooks/GlobalProvider';
+
 import GlobalStyle from './styles/global';
+
 import SignIn from './pages/SignIn';
-import { AuthProvider } from './hooks/Authentication/Authentication';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <AuthProvider>
+      <AppProvider>
         <SignIn />
-      </AuthProvider>
+      </AppProvider>
     </>
   );
 }
