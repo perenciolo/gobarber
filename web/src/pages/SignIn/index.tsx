@@ -1,10 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 import { Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
-import { Container, Content, Background } from './styles';
+import { Container, Content, AnimationContainer, Background } from './styles';
 import logo from '../../assets/logo.svg';
 import Button from '../../components/Button/Button';
 import FormikInput from '../../components/FormikInput/FormikInput';
@@ -48,48 +49,50 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img src={logo} alt="GoBarber" />
-        <Formik
-          initialValues={{ email: '', password: '' }}
-          validationSchema={SignInSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ setFieldTouched, isValid, isSubmitting }: FormikProps<any>) => {
-            return (
-              <Form>
-                <h1>Faça seu login</h1>
-                <FormikInput
-                  name="email"
-                  type="text"
-                  placeholder="E-mail"
-                  icon={FiMail}
-                  onFocus={() => setFieldTouched('email', true)}
-                  onBlur={() => setFieldTouched('email', false)}
-                />
-                <FormikInput
-                  name="password"
-                  type="password"
-                  placeholder="Senha"
-                  icon={FiLock}
-                  onFocus={() => setFieldTouched('password', true)}
-                  onBlur={() => setFieldTouched('password', false)}
-                />
-                <Button
-                  type="submit"
-                  disabled={!isValid}
-                  loading={isSubmitting}
-                >
-                  Entrar
-                </Button>
-                <a href="forgot">Esqueci minha senha</a>
-              </Form>
-            );
-          }}
-        </Formik>
-        <a href="signup">
-          <FiLogIn />
-          Criar conta
-        </a>
+        <AnimationContainer>
+          <img src={logo} alt="GoBarber" />
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={SignInSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ setFieldTouched, isValid, isSubmitting }: FormikProps<any>) => {
+              return (
+                <Form>
+                  <h1>Faça seu login</h1>
+                  <FormikInput
+                    name="email"
+                    type="text"
+                    placeholder="E-mail"
+                    icon={FiMail}
+                    onFocus={() => setFieldTouched('email', true)}
+                    onBlur={() => setFieldTouched('email', false)}
+                  />
+                  <FormikInput
+                    name="password"
+                    type="password"
+                    placeholder="Senha"
+                    icon={FiLock}
+                    onFocus={() => setFieldTouched('password', true)}
+                    onBlur={() => setFieldTouched('password', false)}
+                  />
+                  <Button
+                    type="submit"
+                    disabled={!isValid}
+                    loading={isSubmitting}
+                  >
+                    Entrar
+                  </Button>
+                  <a href="forgot">Esqueci minha senha</a>
+                </Form>
+              );
+            }}
+          </Formik>
+          <Link to="/signup">
+            <FiLogIn />
+            Criar conta
+          </Link>
+        </AnimationContainer>
       </Content>
       <Background />
     </Container>
